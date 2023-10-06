@@ -1,9 +1,9 @@
 """The application auth router"""
 from fastapi import APIRouter, HTTPException, status
+from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from models.models import Users
-from utils.password_hashing import hash_password, verify_password
 from utils.oauth2 import create_access_token
-
+from utils.password_hashing import hash_password, verify_password
 
 auth_router = APIRouter(prefix='/auth', tags=["Auth"])
 
