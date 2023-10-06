@@ -1,6 +1,7 @@
 """The main python file for the backend"""
 from database.db import init_db
 from fastapi import FastAPI
+from routers.cars import cars_router
 
 app = FastAPI(
     title="Second Hand Cars",
@@ -23,3 +24,5 @@ async def root() -> dict[str]:
         dict[str]: A message to show that the application works
     """
     return {"message": "Hello World"}
+
+app.include_router(cars_router)
