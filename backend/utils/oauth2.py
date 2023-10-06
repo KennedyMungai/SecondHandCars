@@ -29,3 +29,23 @@ def create_access_token(data: dict) -> str:
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
     return encoded_jwt
+
+
+def verify_access_token(token: str) -> dict:
+    """The function to verify a JWT token
+
+    Args:
+        token (str): The JWT token
+
+    Returns:
+        dict: The decoded JWT token
+    """
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except JWTError:
+        return None
+    except Exception as e:
+        print(e)
+        return None
+    return None
