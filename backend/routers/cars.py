@@ -25,3 +25,16 @@ async def get_all_cars(
         List[Cars]: Returns a list of cars
     """
     return await Cars.find_all().skip(skip).limit(limit).to_list()
+
+
+@cars_router.post("/", status_code=status.HTTP_201_CREATED)
+async def add_one_car(car: Cars) -> Cars:
+    """The endpoint to add a car
+
+    Args:
+        car (Cars): The car to add
+
+    Returns:
+        Cars: The added car
+    """
+    return await car.create()
