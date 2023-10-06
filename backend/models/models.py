@@ -1,5 +1,5 @@
 """The model of the car data"""
-from beanie import Document
+from beanie import Document, PydanticObjectId
 
 
 class Cars(Document):
@@ -8,24 +8,13 @@ class Cars(Document):
     Args:
         Document (_type_): The base for the models
     """
+    _id: PydanticObjectId
     brand: str
     make: str
     year: int
     price: int
     km: int
-    gearbox: str
-    doors: str
-    imported: int
-    kW: int
     cm3: int
-    fuel: str
-    registered: int
-    color: str
-    aircon: int
-    damage: int
-    car_type: str
-    standard: int
-    drive: str
 
     class Settings:
         """The name of the collection"""
@@ -35,23 +24,12 @@ class Cars(Document):
         """The configuration class for the model"""
         json_schema_extra = {
             "example": {
+                "_id": "e1c5d5sd1c5dc5sd5",
                 "brand": "Mercedes",
-                "make": "Some Pretentious Series of Letters and Spaces",
-                "year": 1990,
+                "make": "Something Fancy",
+                "year": 2005,
                 "price": 1000000,
-                "km": 1200,
-                "gearbox": "Something",
-                "doors": "4/4",
-                "imported": 0,
-                "kW": 60,
-                "cm3": 2000,
-                "fuel": "petrol",
-                "registered": 1,
-                "color": "Black",
-                "aircon": 3,
-                "damage": 0,
-                "car_type": "SUV",
-                "standard": 4,
-                "drive": "F"
+                "km": 2000,
+                "cm3": 2000
             }
         }
