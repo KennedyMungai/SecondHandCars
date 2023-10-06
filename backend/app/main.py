@@ -15,7 +15,7 @@ async def initialize_database():
     await init_db()
 
 
-@app.get("/")
+@app.get("/", tags=["Root"])
 async def root() -> dict[str]:
     """The root endpoint of the application
 
