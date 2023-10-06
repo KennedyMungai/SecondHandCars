@@ -33,3 +33,23 @@ class Cars(Document):
                 "cm3": 2000
             }
         }
+
+
+class Users(Document):
+    _id: PydanticObjectId
+    name: str
+    email: str
+    password_hash: str
+
+    class Settings:
+        name = "users_collection"
+
+    class Config:
+        json_schema_extras = {
+            "example": {
+                "_id": "e1c5d5sd1c5dc5sd5",
+                "name": "John Doe",
+                "email": "XXXXXXXXXXXX",
+                "password_hash": "XXXXXXXXXXXX"
+            }
+        }
