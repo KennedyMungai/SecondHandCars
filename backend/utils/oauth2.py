@@ -1,9 +1,12 @@
 """The oauth2 logic for creating JWT tokens"""
 import os
 from datetime import datetime, timedelta
-
+from fastapi import Depends
+from fastapi.security import OAuth2PasswordBearer
 from dotenv import find_dotenv, load_dotenv
 from jose import JWTError, jwt
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 load_dotenv(find_dotenv())
 
@@ -48,4 +51,15 @@ def verify_access_token(token: str) -> dict:
     except Exception as e:
         print(e)
         return None
-    return None
+
+
+def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
+    """The function to get the current user
+
+    Args:
+        token (str): The JWT token
+
+    Returns:
+        dict: The current user
+    """
+    return verify_access_token(token=token)
