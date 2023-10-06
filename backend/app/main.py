@@ -2,6 +2,7 @@
 from database.db import init_db
 from fastapi import FastAPI
 from routers.cars import cars_router
+from routers.auth import auth_router
 
 app = FastAPI(
     title="Second Hand Cars",
@@ -26,3 +27,4 @@ async def root():
     return {"message": "Hello World"}
 
 app.include_router(cars_router)
+app.include_router(auth_router)
