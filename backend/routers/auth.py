@@ -21,3 +21,15 @@ async def user_login(user_data: OAuth2PasswordRequestForm = Depends()):
     access_token = create_access_token(data={"sub": db_user._id})
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@auth_router.post(
+    '/register',
+    status_code=status.HTTP_201_CREATED
+)
+async def user_register(user_data: Users):
+    user_data.password_hash = hash_password(user_data.password_hash)
+
+    await user_data.create()
+
+    return {"message": "User created successfully"}
