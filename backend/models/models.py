@@ -37,7 +37,6 @@ class Cars(Document):
 
 class Users(Document):
     _id: PydanticObjectId
-    name: str
     email: str
     password_hash: str
 
@@ -48,7 +47,6 @@ class Users(Document):
         json_schema_extras = {
             "example": {
                 "_id": "e1c5d5sd1c5dc5sd5",
-                "name": "John Doe",
                 "email": "XXXXXXXXXXXX",
                 "password_hash": "XXXXXXXXXXXX"
             }
