@@ -3,8 +3,9 @@ from typing import List, Optional
 
 from beanie import PydanticObjectId
 from beanie.operators import In
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from models.models import Cars
+from utils.oauth2 import get_current_user
 
 cars_router = APIRouter(prefix="/cars", tags=["Cars"])
 
@@ -13,6 +14,7 @@ cars_router = APIRouter(prefix="/cars", tags=["Cars"])
 async def get_all_cars(
     skip: Optional[int] = 0,
     limit: Optional[int] = 100,
+    current_user: int = Depends(get_current_user)
 ) -> List[Cars]:
     """The endpoint to retrieve a bunch of cars
 
@@ -28,7 +30,10 @@ async def get_all_cars(
 
 
 @cars_router.get("/{car_id}")
-async def get_one_car(car_id: PydanticObjectId) -> Cars:
+async def get_one_car(
+    car_id: PydanticObjectId,
+    current_user: int = Depends(get_current_user)
+) -> Cars:
     """The endpoint to retrieve one car
 
     Args:
@@ -44,8 +49,14 @@ async def get_one_car(car_id: PydanticObjectId) -> Cars:
             status_code=status.HTTP_404_NOT_FOUND, detail="Car not found")
 
 
-@cars_router.post("/", status_code=status.HTTP_201_CREATED)
-async def add_one_car(car: Cars) -> Cars:
+@cars_router.post(
+    "/",
+    status_code=status.HTTP_201_CREATED
+)
+async def add_one_car(
+    car: Cars,
+    current_user: int = Depends(get_current_user)
+) -> Cars:
     """The endpoint to add a car
 
     Args:
@@ -61,8 +72,15 @@ async def add_one_car(car: Cars) -> Cars:
             status_code=status.HTTP_405_METHOD_NOT_ALLOWED, detail="Something Went Wrong")
 
 
-@cars_router.put("/{car_id}", status_code=status.HTTP_202_ACCEPTED)
-async def update_one_car(car_id: PydanticObjectId, car: Cars) -> Cars:
+@cars_router.put(
+    "/{car_id}",
+    status_code=status.HTTP_202_ACCEPTED
+)
+async def update_one_car(
+    car_id: PydanticObjectId,
+    car: Cars,
+    current_user: int = Depends(get_current_user)
+) -> Cars:
     """The endpoint to update a car
 
     Args:
@@ -85,8 +103,14 @@ async def update_one_car(car_id: PydanticObjectId, car: Cars) -> Cars:
     return car_to_update
 
 
-@cars_router.delete("/{car_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_one_car(car_id: PydanticObjectId) -> None:
+@cars_router.delete(
+    "/{car_id}",
+    status_code=status.HTTP_204_NO_CONTENT
+)
+async def delete_one_car(
+    car_id: PydanticObjectId,
+    current_user: int = Depends(get_current_user)
+) -> None:
     """The endpoint to delete a car
 
     Args:
