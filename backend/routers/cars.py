@@ -12,7 +12,6 @@ cars_router = APIRouter(prefix="/cars", tags=["Cars"])
 async def get_all_cars(
     skip: Optional[int] = 0,
     limit: Optional[int] = 100,
-    search: Optional[str] = ''
 ) -> List[Cars]:
     """The endpoint to retrieve a bunch of cars
 
