@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main className="h-screen w-screen bg-zinc-800"></main>;
+  return <main className="h-screen bg-zinc-800"></main>;
 }
