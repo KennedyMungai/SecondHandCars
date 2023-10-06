@@ -1,7 +1,6 @@
 """The main python file for the backend"""
-from fastapi import FastAPI
 from database.db import init_db
-
+from fastapi import FastAPI
 
 app = FastAPI(
     title="Second Hand Cars",
