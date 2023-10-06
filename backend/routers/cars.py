@@ -35,7 +35,7 @@ async def get_one_car(car_id: PydanticObjectId) -> Cars:
         car_id (PydanticObjectId): The database id of the car
 
     Returns:
-        Cars: The retrived car
+        Cars: The retrieved car
     """
     return await Cars.get(car_id)
 
