@@ -37,7 +37,7 @@ async def get_one_car(car_id: PydanticObjectId) -> Cars:
     Returns:
         Cars: The retrieved car
     """
-    car = Cars.get(car_id)
+    car = Cars.find_one(car_id)
 
     if not car:
         raise HTTPException(
@@ -72,7 +72,7 @@ async def update_one_car(car_id: PydanticObjectId, car: Cars) -> Cars:
     Returns:
         Cars: The updated car
     """
-    car_to_update = Cars.get(car_id)
+    car_to_update = Cars.find_one(car_id)
 
     if not car_to_update:
         raise HTTPException(
@@ -92,11 +92,11 @@ async def delete_one_car(car_id: PydanticObjectId) -> None:
     Args:
         car_id (PydanticObjectId): The database id of the car
     """
-    car_to_delete = Cars.get(car_id)
+    car_to_delete = Cars.find_one(id=car_id)
 
     if not car_to_delete:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Car not found")
 
-    await car_to_delete.delete()
+    await Cars.delete(car_to_delete)
     return None
