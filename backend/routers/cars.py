@@ -78,13 +78,25 @@ async def update_one_car(car_id: PydanticObjectId, car: Cars) -> Cars:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Car not found")
 
-    car_to_update.brand = car.brand
-    car_to_update.make = car.make
-    car_to_update.year = car.year
-    car_to_update.price = car.price
-    car_to_update.km = car.km
-    car_to_update.cm3 = car.cm3
+    await car_to_update.update(car)
 
     await car_to_update.save()
 
     return car_to_update
+
+
+@cars_router.delete("/{car_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_one_car(car_id: PydanticObjectId) -> None:
+    """The endpoint to delete a car
+
+    Args:
+        car_id (PydanticObjectId): The database id of the car
+    """
+    car_to_delete = Cars.get(car_id)
+
+    if not car_to_delete:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Car not found")
+
+    await car_to_delete.delete()
+    return None
