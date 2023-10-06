@@ -1,5 +1,6 @@
 """The cars router file"""
 from typing import List, Optional
+
 from beanie import PydanticObjectId
 from beanie.operators import In
 from fastapi import APIRouter, HTTPException, status
@@ -36,7 +37,11 @@ async def get_one_car(car_id: PydanticObjectId) -> Cars:
     Returns:
         Cars: The retrieved car
     """
-    return await Cars.get(car_id)
+    car = Cars.get(car_id)
+
+    if not car:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Car not found")
 
 
 @cars_router.post("/", status_code=status.HTTP_201_CREATED)
@@ -49,4 +54,37 @@ async def add_one_car(car: Cars) -> Cars:
     Returns:
         Cars: The added car
     """
-    return await car.create()
+    try:
+        return await car.create()
+    except:
+        raise HTTPException(
+            status_code=status.HTTP_405_METHOD_NOT_ALLOWED, detail="Something Went Wrong")
+
+
+@cars_router.put("/{car_id}", status_code=status.HTTP_202_ACCEPTED)
+async def update_one_car(car_id: PydanticObjectId, car: Cars) -> Cars:
+    """The endpoint to update a car
+
+    Args:
+        car_id (PydanticObjectId): The database id of the car
+        car (Cars): The car to update
+
+    Returns:
+        Cars: The updated car
+    """
+    car_to_update = Cars.get(car_id)
+
+    if not car_to_update:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Car not found")
+
+    car_to_update.brand = car.brand
+    car_to_update.make = car.make
+    car_to_update.year = car.year
+    car_to_update.price = car.price
+    car_to_update.km = car.km
+    car_to_update.cm3 = car.cm3
+
+    await car_to_update.save()
+
+    return car_to_update
