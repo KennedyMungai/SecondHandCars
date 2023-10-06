@@ -7,13 +7,13 @@ type Props = {};
 
 const NavBar = (props: Props) => {
   return (
-    <nav className="flex justify-between items-center p-[1rem] bg-zinc-100 h-[5rem] text-black shadow-md sticky">
+    <nav className="flex justify-between items-center p-[1rem] bg-zinc-100 h-[10vh] text-black shadow-md sticky">
       <div className="rounded-full">
         <Image
           src="/images/logo.jpg"
           alt="Company Logo"
-          width={100}
-          height={100}
+          width={90}
+          height={90}
         />
       </div>
       <div className="">
