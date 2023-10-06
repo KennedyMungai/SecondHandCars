@@ -24,4 +24,4 @@ async def get_all_cars(
     Returns:
         List[Cars]: Returns a list of cars
     """
-    return await Cars.find(In(Cars.brand, search)).skip(skip).limit(limit).to_list()
+    return await Cars.find_all().skip(skip).limit(limit).to_list()
