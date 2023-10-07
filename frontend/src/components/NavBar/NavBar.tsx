@@ -9,12 +9,14 @@ const NavBar = (props: Props) => {
   return (
     <nav className="flex justify-between items-center p-[1rem] bg-zinc-100 h-[10vh] text-black shadow-md sticky">
       <div className="rounded-full">
-        <Image
-          src="/images/logo.jpg"
-          alt="Company Logo"
-          width={90}
-          height={90}
-        />
+        <Link href={"/"}>
+          <Image
+            src="/images/logo.jpg"
+            alt="Company Logo"
+            width={90}
+            height={90}
+          />
+        </Link>
       </div>
       <div className="">
         <h1 className="font-bold text-xl uppercase">Second Hand Cars</h1>
