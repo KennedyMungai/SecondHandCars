@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState: IRegisterUser = {
-  email: "",
+  username: "",
   password: "",
   is_loaded: false,
 };
@@ -31,12 +31,12 @@ const registerSlice = createSlice({
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.is_loaded = true;
-        state.email = action.payload.email;
+        state.username = action.payload.email;
         state.password = action.payload.password;
       })
       .addCase(createUser.rejected, (state) => {
         state.is_loaded = false;
-        state.email = "";
+        state.username = "";
         state.password = "";
       });
   },
