@@ -36,14 +36,23 @@ class Cars(Document):
 
 
 class Users(Document):
+    """The model for the users collection
+
+    Args:
+        Document (_type_): The base class for the users
+    """
     _id: PydanticObjectId
     email: str
     password_hash: str
 
     class Settings:
+        """The name of the users collection
+        """
         name = "users_collection"
 
     class Config:
+        """The configuration of the users class
+        """
         json_schema_extras = {
             "example": {
                 "_id": "e1c5d5sd1c5dc5sd5",
