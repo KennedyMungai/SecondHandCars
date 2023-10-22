@@ -1,4 +1,5 @@
 """The model of the car data"""
+from typing import Optional
 from beanie import Document, PydanticObjectId
 
 
@@ -15,6 +16,7 @@ class Cars(Document):
     price: int
     km: int
     cm3: int
+    picture: Optional[str] = None
 
     class Settings:
         """The name of the collection"""
