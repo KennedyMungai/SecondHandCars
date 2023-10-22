@@ -1,9 +1,12 @@
 """The cars router file"""
 from typing import List, Optional
 
+import cloudinary
+import cloudinary.uploader
 from beanie import PydanticObjectId
 from beanie.operators import In
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import (APIRouter, Depends, File, Form, HTTPException, UploadFile,
+                     status)
 from models.models import Cars
 from utils.oauth2 import get_current_user
 
