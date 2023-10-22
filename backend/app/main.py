@@ -1,13 +1,23 @@
 """The main python file for the backend"""
 from database.db import init_db
 from fastapi import FastAPI
-from routers.cars import cars_router
+from fastapi.middleware.cors import CORSMiddleware
 from routers.auth import auth_router
+from routers.cars import cars_router
 
 app = FastAPI(
     title="Second Hand Cars",
     description="The backend of a second hand cars app",
     version="0.1.0"
+)
+
+origins = ["https://localhost:3000", "http://localhost:300"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
 )
 
 
